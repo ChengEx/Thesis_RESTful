@@ -18,6 +18,6 @@ const CONNEVTION_URL = "mongodb+srv://denoriaaa:SQ3No7zNIIwTmSBI@cluster0.hnuu7.
 const PORT =  process.env.PORT || 5000;
 
 mongoose.connect(CONNEVTION_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
-    .then(()=> app.listen(PORT,()=>console.log(`Server unning om port: ${PORT}`)))
+    .then(()=> app.listen(PORT,()=>console.log(`Server runing on port: ${PORT}`)))
     .catch((error)=>console.log(error.message));
 
