@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from  './actions/posts';
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
-import memories from './images/memories.png';
+import chat from './images/chat.png';
 import useStyles from './styles';
 
 const App=()=>{
@@ -20,8 +20,8 @@ const App=()=>{
     return (
         <Container maxidth="lg">
             <AppBar className={classes.appBar} position="static" color="inherit">
-                <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
-                <img className={classes.image} src={memories} alt="memories" height="60" />
+                <Typography className={classes.heading} variant="h2" align="center">Social Media</Typography>
+                <img className={classes.image} src={chat} alt="chat" height="60" />
             </AppBar>
             <Grow in>
                 <Container>

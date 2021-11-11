@@ -39,7 +39,7 @@ const Form = ( { currentId, setCurrentId } ) => {
     return (
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                <Typography variant="h6">{currentId ? 'Editing':'Creating'} a memory</Typography>
+                <Typography variant="h6">{currentId ? 'Editing':'Creating'} a post</Typography>
                 <TextField 
                     name="creator" 
                     variant="outlined" 
@@ -60,6 +60,8 @@ const Form = ( { currentId, setCurrentId } ) => {
                     name="message" 
                     variant="outlined" 
                     label="Message" 
+                    multiline
+                    rows={10}
                     fullWidth
                     value={postData.message}
                     onChange={(e) => setPostData({ ...postData, message: e.target.value })}
