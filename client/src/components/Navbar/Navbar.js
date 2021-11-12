@@ -12,7 +12,7 @@ const Navbar = () => {
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Social Media</Typography>
+                <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Share</Typography>
                 <img className={classes.image} src={chat} alt="icon" height="60" />
             </div>
             <Toolbar className={classes.toolbar}>
