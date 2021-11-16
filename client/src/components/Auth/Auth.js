@@ -1,25 +1,46 @@
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Input from './Input';
 import useStyles from './style';
 import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@material-ui/core';
+import { signin, signup } from '../../actions/auth';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';;
 
+const initialState = { firstName:'',lastName:'',email:'', password:'', confirmPassword:''};
 
-
-const Auth = () => {
+const SignUp = () => {
     const [ showPassword, setShowPassword ] = useState(false);
+    const [ isSignup, setIsSignup ] = useState(false);
+    const [ formData, setFormData ] = useState(initialState);
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const history = useNavigate();
+
+    const handleShowPassword = ()=>setShowPassword(!showPassword)
+
     
-    const isSignup = false;
-
-    const handleShowPassword = ()=>setShowPassword((prevShowPassword)=>!prevShowPassword)
-
-    const handleSubmit = ()=>{
-
+    const switchMode = ()=>{
+        setFormData(initialState);
+        setIsSignup((prevIsSignUp)=> !prevIsSignUp);
+        setShowPassword(false);
     }
-    const handleChange = ()=>{
 
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+
+        if (isSignup) {
+            dispatch(signup(formData, history));
+        } else {
+            dispatch(signin(formData, history));
+        }
     }
+
+    const handleChange = (e)=>{
+        setFormData({ ...formData, [e.target.name]:e.target.value });
+    }
+
     
     return (
         <Container component="main" maxWidth="xs">
@@ -39,8 +60,8 @@ const Auth = () => {
                                         autoFocus
                                         half/>
                                 
-                                    <Input name="firstName"
-                                        label="First Name"
+                                    <Input name="lastName"
+                                        label="Last Name"
                                         handleChange={handleChange}
                                         half/>   
                                 </>
@@ -53,10 +74,17 @@ const Auth = () => {
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                         {isSignup? 'Sign Up':'Sign In'}
                     </Button>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <Button onClick={switchMode}>
+                                { isSignup? 'Already hava an account? Sign In':"Don't have an account? Sign Up"}
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </form>
             </Paper>
         </Container>
     )
 }
 
-export default Auth;
+export default SignUp;

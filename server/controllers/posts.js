@@ -5,7 +5,7 @@ import PostMessage from "../models/postMessage.js";
 export const getPosts = async(req, res)=> {
     try{
         const postMessage = await PostMessage.find();
-        console.log(postMessage);
+        //console.log(postMessage);
         res.status(200).json(postMessage);
     }catch(err){
         res.status(404).json({message: err.message });
@@ -46,9 +46,19 @@ export const likePost = async(req, res) => {
     //mongoose objectId
     const { id } = req.params;
 
+    if(!req.userId) return res.json({message:'Unauthenticated'});
+
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with that id');
     const post = await PostMessage.findById(id);
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount+1}, {new: true});
+
+    const index = post.likes.findIndex((id)=> id === String(req.userId));
+    if(index === -1) {
+        post.likes.push(req.userId);
+    }else{
+        post.likes = post.likes.filter((id)=> id !== String(req.userId));
+    }
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {new: true});
 
     res.json(updatedPost)
 
